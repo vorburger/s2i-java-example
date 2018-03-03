@@ -18,7 +18,9 @@ Now to build the simplest possible Java server with OpenShift Source-To-Image (S
 or
 
     git clone https://github.com/vorburger/s2i-java-example ; cd s2i-java-example
-    s2i build . fabric8/s2i-java vorburger:s2i-java-example
+    s2i build --copy . fabric8/s2i-java vorburger:s2i-java-example
+
+_NB The `--copy` ensures that the latest content of the current directory and not only it's commited .git content is used ([see S2I #418](https://github.com/openshift/source-to-image/issues/418))._
 
 Now run it like this:
 
@@ -53,7 +55,6 @@ If you do not like to use the possibly not latest fabric8/s2i-java from hub.dock
 
 ## TODO points
 
-* Why aren't changes taken into account on 2nd build?
 * Why isn't it incremental?  Keep re-downloading Maven basics, every time..
 * Support Gradle!
 * Monitoring..

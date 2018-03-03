@@ -28,7 +28,7 @@ import java.net.InetSocketAddress;
  * Simplest possible HTTP Server in Java, without dependencies to any external
  * framework.
  *
- * This is intended as an example and "how-to" show case, not production.
+ * This is example "how-to" show case server; do NOT use this for real!
  *
  * @author Michael Vorburger.ch
  */
