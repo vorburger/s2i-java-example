@@ -1,8 +1,7 @@
 # s2i-java-example
 
-This example is intentionally NOT using Spring Boot, Vert.x or whatever other simple (non-containerized) Java
-server framework, but for clarify shows how to launch any Java application with a class with a main() method
-(using the Java built-in com.sun.net.httpserver.HttpServer; *JUST* for illustration of S2I).
+This S2I example is intentionally NOT using Spring Boot, Vert.x, Dropwizard, Wildfly Swarm or whatever other simple "fat JAR" (non-WAR/EAR) Java
+server framework, but for clarity simply uses the simplest possible Java server application with a main() class.  You can easily apply this example to whatever standalone Java application you want to container-ize with S2I.  (We're using the Java built-in com.sun.net.httpserver.HttpServer; *JUST* for illustration of S2I.)
 
 
 ## Local
@@ -40,7 +39,7 @@ To do the same as above directly inside your OpenShift instance:
 
 ### Container options
 
-All options documented on https://github.com/fabric8io-images/s2i/tree/master/java/images/jboss
+All JVM options documented on https://github.com/fabric8io-images/s2i/tree/master/java/images/jboss
 are typically specified in [`.s2i/environment`](.s2i/environment), but  for quick testing can obviously also be specified on the `docker run` CLI like so:
 
     docker run -e "JAVA_MAIN_CLASS=ch.vorburger.openshift.s2i.example.Server" -p 8080:8080 vorburger:s2i-java-example
