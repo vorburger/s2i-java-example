@@ -45,7 +45,8 @@ public class Server implements AutoCloseable {
     private final HttpServer httpServer;
 
     public Server() throws IOException {
-        httpServer = HttpServer.create(new InetSocketAddress(8080), 0);
+        int port = 8080;
+        httpServer = HttpServer.create(new InetSocketAddress(port), 0);
         httpServer.createContext("/", exchange -> {
             String response = "hello, world";
             exchange.sendResponseHeaders(HTTP_OK_STATUS, response.getBytes().length);
@@ -54,6 +55,7 @@ public class Server implements AutoCloseable {
             os.close();
         });
         httpServer.start();
+        System.out.println("started 'hello, world' web server on http://localhost:" + 8080);
     }
 
     @Override
