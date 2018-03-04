@@ -32,7 +32,14 @@ and see "hello, world" when accessing http://localhost:8080 - it works!
 
 To do the same as above directly inside your OpenShift instance:
 
-    TODO
+    oc new-app fabric8/s2i-java~https://github.com/vorburger/s2i-java-example
+
+_TODO oc expose svc/s2i-java-example_
+
+or... _TODO how to this right?? This will actually fetch from git instead of using the local host sources:_
+
+    git clone https://github.com/vorburger/s2i-java-example ; cd s2i-java-example
+    oc new-app fabric8/s2i-java~.
 
 
 ## Advanced
@@ -45,11 +52,33 @@ are typically specified in [`.s2i/environment`](.s2i/environment), but  for quic
     docker run -e "JAVA_MAIN_CLASS=ch.vorburger.openshift.s2i.example.Server" -p 8080:8080 vorburger:s2i-java-example
 
 
-### fabric8io-images/s2i local build
+### fabric8io-images/s2i self build locally and in OpenShift
 
-If you do not like to use the possibly not latest fabric8/s2i-java from hub.docker.com you can of course first also just:
+If you do not like to use the possibly not latest fabric8/s2i-java from hub.docker.com you can of course first also just do this for local Docker:
 
     docker build https://github.com/fabric8io-images/s2i.git#master:java/images/jboss
+
+or inside OpenShift:
+
+    oc new-build https://github.com/fabric8io-images/s2i.git --context-dir=java/images/jboss
+
+or push latest local development changes into OpenShift without git commit & push to GitHub:
+
+    git clone https://github.com/fabric8io-images/s2i.git
+    cd s2i/java/images/jboss
+    eval $(minishift docker-env)
+    docker build -t fabric8/s2i-java .
+    oc tag --source=docker fabric8/s2i-java:latest s2i-java:latest
+
+
+### How to clean up
+
+    oc delete imagestream s2i-java
+    oc delete imagestream s2i-java-example
+    oc delete build s2i-java-example-1
+    oc delete buildconfig s2i-java-example
+    oc delete deploymentconfig s2i-java-example
+    oc delete service s2i-java-example
 
 
 ## TODO points
@@ -57,6 +86,7 @@ If you do not like to use the possibly not latest fabric8/s2i-java from hub.dock
 * Why isn't it incremental?  Keep re-downloading Maven basics, every time..
 * Support Gradle!
 * Monitoring..
+* Sources should not be runtime container?!
 
 
 ## More background
@@ -64,3 +94,5 @@ If you do not like to use the possibly not latest fabric8/s2i-java from hub.dock
 * https://github.com/fabric8io-images/s2i
 * https://github.com/fabric8io-images/s2i/tree/master/java/images/jboss
 * https://github.com/fabric8io-images/s2i/issues/112
+* https://github.com/openshift/source-to-image
+
