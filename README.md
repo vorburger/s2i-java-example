@@ -58,6 +58,12 @@ If you want to use latest fabric8/s2i-java from source instead of an older image
 
     docker build https://github.com/fabric8io-images/s2i.git#master:java/images/jboss
 
+or:
+
+    git clone https://github.com/fabric8io-images/s2i.git
+    cd java/images/jboss
+    docker build . -t fabric8/s2i-java
+
 and inside OpenShift:
 
     oc new-build https://github.com/fabric8io-images/s2i.git --context-dir=java/images/jboss
