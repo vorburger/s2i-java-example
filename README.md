@@ -3,6 +3,7 @@
 This S2I example is intentionally NOT using Spring Boot, Vert.x, Dropwizard, Wildfly Swarm or whatever other simple "fat JAR" (non-WAR/EAR) Java
 server framework, but for clarity simply uses the simplest possible Java server application with a main() class.  You can easily apply this example to whatever standalone Java application you want to container-ize with S2I.  (We're using the Java built-in com.sun.net.httpserver.HttpServer; *JUST* for illustration of S2I.)
 
+__Since https://github.com/fabric8io-images/s2i/pull/127, this is integrated in & part of fabric8io-images, and will continue to be maintained there instead of here.__
 
 ## Local
 
@@ -90,7 +91,7 @@ and then test using that like this:
 ## TODO points
 
 * Why isn't it incremental?  Keeps re-downloading Maven basics, every time..
-* Support Gradle!
+* Support Gradle!  see https://github.com/fabric8io-images/s2i/pull/121 and the [gradle branch on this repo](https://github.com/vorburger/s2i-java-example/compare/gradle)
 * Monitoring..
 * Sources should not be runtime container?!
 
